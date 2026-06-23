@@ -6,6 +6,7 @@
   <meta name="description" content="Farmacia arrobaPi en Ourense. Horario de lunes a sábado de 9:00 a 21:00. Consejos farmacéuticos, servicios y ubicación en Progreso, 113 - entrada por Ervedelo." />
   <meta name="theme-color" content="#169b62" />
   <title>Farmacia arrobaPi | Ourense</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
       --green: #169b62;
@@ -469,9 +470,65 @@
       box-shadow: var(--shadow);
     }
 
-    .map-placeholder {
+    .map-wrap {
       min-height: 330px;
       border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      background: var(--green-soft);
+      border: 1px solid rgba(22,155,98,.14);
+    }
+
+    #map {
+      display: none;
+      width: 100%;
+      min-height: 330px;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    body.map-ready #map { display: block; }
+
+    .leaflet-container {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      box-shadow: 0 12px 35px rgba(0,0,0,.16);
+    }
+
+    .leaflet-popup-content {
+      margin: 13px 16px;
+      line-height: 1.35;
+    }
+
+    .custom-marker {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50% 50% 50% 10%;
+      transform: rotate(-45deg);
+      background: var(--green);
+      border: 3px solid #fff;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+
+    .custom-marker span {
+      transform: rotate(45deg);
+      color: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .map-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
       background:
         linear-gradient(135deg, rgba(22,155,98,.82), rgba(11,111,71,.93)),
         radial-gradient(circle at 25% 25%, rgba(255,255,255,.4), transparent 18%);
@@ -480,20 +537,20 @@
       place-items: center;
       text-align: center;
       padding: 24px;
-      overflow: hidden;
-      position: relative;
     }
 
-    .map-placeholder::before,
-    .map-placeholder::after {
+    body.map-ready .map-fallback { display: none; }
+
+    .map-fallback::before,
+    .map-fallback::after {
       content: "";
       position: absolute;
       background: rgba(255,255,255,.14);
       border-radius: 999px;
     }
 
-    .map-placeholder::before { width: 85%; height: 26px; transform: rotate(-24deg); }
-    .map-placeholder::after { width: 70%; height: 22px; transform: rotate(31deg); }
+    .map-fallback::before { width: 85%; height: 26px; transform: rotate(-24deg); }
+    .map-fallback::after { width: 70%; height: 22px; transform: rotate(31deg); }
 
     .pin {
       position: relative;
@@ -510,10 +567,10 @@
       backdrop-filter: blur(8px);
     }
 
-    .map-placeholder strong,
-    .map-placeholder span { position: relative; z-index: 1; }
-    .map-placeholder strong { display: block; font-size: 22px; }
-    .map-placeholder span { display: block; color: rgba(255,255,255,.82); margin-top: 4px; }
+    .map-fallback strong,
+    .map-fallback span { position: relative; z-index: 1; }
+    .map-fallback strong { display: block; font-size: 22px; }
+    .map-fallback span { display: block; color: rgba(255,255,255,.82); margin-top: 4px; }
 
     .location-info {
       padding: 18px 12px;
@@ -630,7 +687,7 @@
       .section { padding: 44px 0; }
       .panel { padding: 26px; }
       .location-card { padding: 12px; }
-      .map-placeholder { min-height: 250px; }
+      .map-wrap, #map { min-height: 250px; }
     }
   </style>
 </head>
@@ -789,11 +846,14 @@
 
     <section class="section" id="ubicacion">
       <div class="container location-card">
-        <div class="map-placeholder" aria-label="Mapa decorativo de ubicación">
-          <div>
-            <div class="pin" aria-hidden="true">⌖</div>
-            <strong>Progreso, 113</strong>
-            <span>Entrada por Ervedelo · Ourense</span>
+        <div class="map-wrap" aria-label="Mapa de ubicación de Farmacia arrobaPi">
+          <div id="map"></div>
+          <div class="map-fallback">
+            <div>
+              <div class="pin" aria-hidden="true">⌖</div>
+              <strong>Progreso, 113</strong>
+              <span>Entrada por Ervedelo · Ourense</span>
+            </div>
           </div>
         </div>
 
@@ -829,8 +889,40 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    window.addEventListener('load', function () {
+      if (!window.L || !document.getElementById('map')) return;
+
+      const pharmacy = [42.33994266301421, -7.867063288347428];
+      const map = L.map('map', {
+        scrollWheelZoom: false,
+        zoomControl: true
+      }).setView(pharmacy, 17);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
+      }).addTo(map);
+
+      const markerIcon = L.divIcon({
+        className: '',
+        html: '<div class="custom-marker"><span>+</span></div>',
+        iconSize: [42, 42],
+        iconAnchor: [21, 42],
+        popupAnchor: [0, -42]
+      });
+
+      L.marker(pharmacy, { icon: markerIcon })
+        .addTo(map)
+        .bindPopup('<strong>Farmacia arrobaPi</strong><br>Progreso, 113<br>Entrada por Ervedelo · Ourense')
+        .openPopup();
+
+      document.body.classList.add('map-ready');
+      setTimeout(function () { map.invalidateSize(); }, 100);
+    });
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a102ddf5dfe8013d',t:'MTc4MjIxMTE0Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
