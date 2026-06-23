@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Farmacia arrobaPi en Ourense. Horario de lunes a sábado de 9:00 a 21:00. Consejos farmacéuticos, servicios y ubicación en Progreso, 113 - entrada por Ervedelo." />
+  <meta name="theme-color" content="#169b62" />
+  <title>Farmacia arrobaPi | Ourense</title>
+  <style>
+    :root {
+      --green: #169b62;
+      --green-dark: #0b6f47;
+      --green-soft: #e9f8f1;
+      --brown: #8a5a35;
+      --ink: #171717;
+      --muted: #676767;
+      --line: #e8e8e8;
+      --card: #ffffff;
+      --bg: #fbfbf8;
+      --shadow: 0 18px 55px rgba(20, 31, 26, .10);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(22,155,98,.14), transparent 30%),
+        radial-gradient(circle at 92% 10%, rgba(138,90,53,.10), transparent 28%),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 16px;
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      z-index: 10;
+    }
+
+    .skip-link:focus { left: 16px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: rgba(251, 251, 248, .86);
+      border-bottom: 1px solid rgba(232,232,232,.75);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      min-width: fit-content;
+    }
+
+    .brand svg {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 8px 14px rgba(22,155,98,.20));
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      letter-spacing: -.03em;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .brand-text small {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .word-farmacia { color: #000; font-size: 20px; }
+    .word-arroba { color: var(--green); font-size: 20px; }
+    .word-pi { color: var(--brown); font-size: 20px; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      display: inline-flex;
+      padding: 10px 13px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #2f2f2f;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .cta-mini {
+      background: var(--green);
+      color: white !important;
+      box-shadow: 0 9px 22px rgba(22,155,98,.20);
+    }
+
+    .cta-mini:hover,
+    .cta-mini:focus-visible {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding: 78px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(22,155,98,.18);
+      background: rgba(233,248,241,.82);
+      color: var(--green-dark);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 7px rgba(22,155,98,.12);
+    }
+
+    h1, h2, h3 { line-height: 1.08; margin: 0; letter-spacing: -.045em; }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 78px);
+      max-width: 860px;
+    }
+
+    h1 span { color: var(--green); }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 19px;
+      max-width: 680px;
+      margin: 22px 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .button.primary {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 15px 32px rgba(22,155,98,.23);
+    }
+
+    .button.secondary {
+      background: white;
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .button.primary:hover { background: var(--green-dark); }
+    .button.secondary:hover { box-shadow: 0 12px 30px rgba(0,0,0,.07); }
+
+    .hero-card {
+      position: relative;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(232,232,232,.82);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -90px -100px auto auto;
+      width: 230px;
+      height: 230px;
+      background: rgba(22,155,98,.12);
+      border-radius: 50%;
+    }
+
+    .status-card {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .status-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-weight: 800;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .card-title {
+      font-size: 28px;
+      margin: 0;
+      letter-spacing: -.04em;
+    }
+
+    .hours-box {
+      background: #fbfdfb;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .hours-row:last-child { border-bottom: 0; }
+    .hours-row span:first-child { color: var(--muted); font-weight: 700; }
+    .hours-row span:last-child { color: var(--green-dark); }
+
+    .address {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--muted);
+      margin: 0;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(138,90,53,.08);
+    }
+
+    .section {
+      padding: 64px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(32px, 4vw, 48px);
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.045);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 19px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--ink);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 34px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .panel::after {
+      content: "+";
+      position: absolute;
+      right: -18px;
+      bottom: -74px;
+      color: rgba(255,255,255,.08);
+      font-size: 260px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .panel h2 { font-size: clamp(31px, 4vw, 48px); }
+    .panel p { color: rgba(255,255,255,.76); font-size: 17px; }
+
+    .advice-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .advice {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .advice-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .advice h3 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      letter-spacing: -.03em;
+    }
+
+    .advice p { margin: 0; color: var(--muted); }
+
+    .location-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .map-placeholder {
+      min-height: 330px;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(22,155,98,.82), rgba(11,111,71,.93)),
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.4), transparent 18%);
+      color: white;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .map-placeholder::before,
+    .map-placeholder::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,.14);
+      border-radius: 999px;
+    }
+
+    .map-placeholder::before { width: 85%; height: 26px; transform: rotate(-24deg); }
+    .map-placeholder::after { width: 70%; height: 22px; transform: rotate(31deg); }
+
+    .pin {
+      position: relative;
+      z-index: 1;
+      width: 96px;
+      height: 96px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.32);
+      border-radius: 30px;
+      font-size: 54px;
+      margin: 0 auto 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .map-placeholder strong,
+    .map-placeholder span { position: relative; z-index: 1; }
+    .map-placeholder strong { display: block; font-size: 22px; }
+    .map-placeholder span { display: block; color: rgba(255,255,255,.82); margin-top: 4px; }
+
+    .location-info {
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location-info h2 {
+      font-size: clamp(31px, 4vw, 44px);
+      margin-bottom: 14px;
+    }
+
+    .location-info p { color: var(--muted); font-size: 17px; }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfbfb;
+      color: var(--muted);
+    }
+
+    .contact-item strong { color: var(--ink); }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .small-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--ink);
+    }
+
+    .small-cross {
+      width: 24px;
+      height: 24px;
+      color: var(--green);
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(22,155,98,.08);
+      border: 1px solid rgba(22,155,98,.15);
+      border-radius: 16px;
+      color: #436052;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .split,
+      .location-card {
+        grid-template-columns: 1fr;
+      }
+
+      .cards { grid-template-columns: 1fr 1fr; }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav ul {
+        gap: 0;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+
+      header { position: static; }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav,
+      nav ul { width: 100%; }
+
+      nav ul {
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero { padding-top: 42px; }
+      .hero-card { padding: 18px; }
+      .cards { grid-template-columns: 1fr; }
+      .section { padding: 44px 0; }
+      .panel { padding: 26px; }
+      .location-card { padding: 12px; }
+      .map-placeholder { min-height: 250px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <div class="container nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Farmacia arrobaPi, inicio">
+        <svg viewBox="0 0 100 100" role="img" aria-label="Cruz verde de farmacia" xmlns="http://www.w3.org/2000/svg">
+          <rect x="37" y="8" width="26" height="84" rx="8" fill="#169b62"/>
+          <rect x="8" y="37" width="84" height="26" rx="8" fill="#169b62"/>
+          <path d="M50 18v64M18 50h64" stroke="rgba(255,255,255,.28)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">
+          <span><span class="word-farmacia">Farmacia</span> <span class="word-arroba">arroba</span><span class="word-pi">Pi</span></span>
+          <small>Ourense</small>
+        </span>
+      </a>
+
+      <nav aria-label="Secciones">
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#consejos">Consejos</a></li>
+          <li><a href="#horario">Horario</a></li>
+          <li><a class="cta-mini" href="#ubicacion">Cómo llegar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Farmacia de confianza en Ourense</div>
+          <h1>Cercanía, salud y consejo farmacéutico <span>sin complicaciones.</span></h1>
+          <p>En Farmacia arrobaPi te atendemos con un trato profesional y cercano para ayudarte en el cuidado diario de tu salud, la prevención y el uso responsable de tus medicamentos.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://www.google.com/maps/search/?api=1&query=Progreso%2C%20113%20entrada%20por%20Ervedelo%20Ourense" target="_blank" rel="noopener">Ver ubicación</a>
+            <a class="button secondary" href="#consejos">Leer consejos</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" id="horario" aria-label="Horario y dirección">
+          <div class="status-card">
+            <div class="status-top">
+              <div>
+                <p class="card-title">Horario</p>
+                <p style="margin:8px 0 0;color:var(--muted)">Atención en horario continuo.</p>
+              </div>
+              <span class="badge"><span class="dot" aria-hidden="true"></span> L-S</span>
+            </div>
+
+            <div class="hours-box">
+              <div class="hours-row"><span>Lunes a sábado</span><span>9:00 - 21:00</span></div>
+              <div class="hours-row"><span>Domingos y festivos</span><span>Consultar guardias</span></div>
+            </div>
+
+            <p class="address"><span aria-hidden="true">📍</span><span><strong>Progreso, 113</strong><br>Entrada por Ervedelo · Ourense</span></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="servicios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Servicios habituales</h2>
+          <p>Una farmacia moderna, sencilla y práctica para resolver tus dudas y acompañarte en el cuidado de tu salud.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon" aria-hidden="true">💊</div>
+            <h3>Dispensación y seguimiento</h3>
+            <p>Te ayudamos con la dispensación de medicamentos, pautas de uso, interacciones y recomendaciones para mejorar la adherencia al tratamiento.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧴</div>
+            <h3>Dermofarmacia</h3>
+            <p>Consejo personalizado en higiene, hidratación, protección solar, piel sensible, acné, envejecimiento y cuidado capilar.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">👶</div>
+            <h3>Infantil y familiar</h3>
+            <p>Productos y orientación para bebés, madres, botiquín familiar, salud digestiva, vitaminas y bienestar diario.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🩺</div>
+            <h3>Autocuidado</h3>
+            <p>Información para prevenir molestias frecuentes y saber cuándo acudir al médico o consultar con el equipo farmacéutico.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🌿</div>
+            <h3>Salud natural</h3>
+            <p>Complementos, fitoterapia y hábitos saludables con recomendaciones seguras y adaptadas a cada persona.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧳</div>
+            <h3>Botiquín y viajes</h3>
+            <p>Preparación del botiquín para casa o vacaciones: curas, protección solar, digestivo, hidratación y prevención.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="consejos">
+      <div class="container split">
+        <div class="panel">
+          <h2>Consejos farmacéuticos</h2>
+          <p>Pequeñas pautas de salud para el día a día. Son recomendaciones generales y no sustituyen la valoración de un profesional sanitario.</p>
+          <p>Si tienes síntomas persistentes, tomas medicación crónica, estás embarazada o el paciente es un niño pequeño, consulta siempre antes de iniciar un tratamiento.</p>
+        </div>
+
+        <div class="advice-list" aria-label="Listado de consejos farmacéuticos">
+          <article class="advice">
+            <div class="advice-number">1</div>
+            <div>
+              <h3>Usa los medicamentos como te han indicado</h3>
+              <p>Respeta dosis, horarios y duración. No interrumpas antibióticos o tratamientos prescritos sin consultar, aunque notes mejoría.</p>
+            </div>
+          </article>
+
+          <article class="advice">
+            <div class="advice-number">2</div>
+            <div>
+              <h3>Protección solar todos los días</h3>
+              <p>Elige un fotoprotector adecuado a tu piel, aplícalo en cantidad suficiente y reaplica cada 2 horas si hay exposición directa.</p>
+            </div>
+          </article>
+
+          <article class="advice">
+            <div class="advice-number">3</div>
+            <div>
+              <h3>Hidrátate y cuida tus hábitos</h3>
+              <p>Beber agua, dormir bien, mantener una dieta equilibrada y moverse a diario ayuda a prevenir muchas molestias frecuentes.</p>
+            </div>
+          </article>
+
+          <article class="advice">
+            <div class="advice-number">4</div>
+            <div>
+              <h3>Revisa tu botiquín</h3>
+              <p>Comprueba caducidades, conserva los medicamentos correctamente y lleva los envases caducados o no usados al punto SIGRE.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ubicacion">
+      <div class="container location-card">
+        <div class="map-placeholder" aria-label="Mapa decorativo de ubicación">
+          <div>
+            <div class="pin" aria-hidden="true">⌖</div>
+            <strong>Progreso, 113</strong>
+            <span>Entrada por Ervedelo · Ourense</span>
+          </div>
+        </div>
+
+        <div class="location-info">
+          <h2>Estamos en Ourense</h2>
+          <p>Visítanos en Progreso, 113, con entrada por Ervedelo. Te esperamos de lunes a sábado en horario continuo.</p>
+
+          <div class="contact-list">
+            <div class="contact-item"><span aria-hidden="true">🕘</span><span><strong>Horario:</strong> lunes a sábado de 9:00 a 21:00.</span></div>
+            <div class="contact-item"><span aria-hidden="true">📍</span><span><strong>Dirección:</strong> Progreso, 113 - entrada por Ervedelo, Ourense.</span></div>
+            <div class="contact-item"><span aria-hidden="true">🟢</span><span><strong>Consejo farmacéutico:</strong> consulta al equipo de la farmacia para resolver dudas sobre tratamientos y autocuidado.</span></div>
+          </div>
+
+          <a class="button primary" href="https://www.google.com/maps/search/?api=1&query=Progreso%2C%20113%20entrada%20por%20Ervedelo%20Ourense" target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div class="small-brand">
+          <svg class="small-cross" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <rect x="37" y="8" width="26" height="84" rx="8" fill="currentColor"/>
+            <rect x="8" y="37" width="84" height="26" rx="8" fill="currentColor"/>
+          </svg>
+          <span>Farmacia <span style="color:var(--green)">arroba</span><span style="color:var(--brown)">Pi</span></span>
+        </div>
+        <span>© <span id="year">2026</span> Farmacia arrobaPi · Ourense</span>
+      </div>
+      <div class="notice">Información orientativa. Para urgencias sanitarias o síntomas graves, contacta con los servicios médicos correspondientes.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
